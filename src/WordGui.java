@@ -6,27 +6,15 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.*;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
-import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.Map.Entry;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -97,8 +85,7 @@ class MyButtonListener implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) 
 	{
-		JButton btn = (JButton) e.getSource();
-		Scanner inFS = null;
+		JButton btn = (JButton) e.getSource();		
 		String userWord = fr.userInput.getText();
 				
 		try {
