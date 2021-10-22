@@ -23,7 +23,7 @@ import org.jsoup.select.Elements;
 public class WordGui {
 	private static void constructGUI() {
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		MyJFrame frame = new MyJFrame();
+		MyJFrame frame = new MyJFrame();		
 		frame.setVisible(true);
 		
 	}
@@ -63,6 +63,7 @@ class MyJFrame extends JFrame {
 		word = new JLabel("Enter a word to be counted");
 		answer = new JLabel("Answer: ");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("Word Count");
 		this.setLayout(new GridLayout(2, 2));		
 		this.add(word);		
 		this.add(userInput);
