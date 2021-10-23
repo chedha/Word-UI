@@ -56,6 +56,7 @@ class MyJFrame extends JFrame {
 	public JLabel answer;
 	public JTextField userInput;
 	public JTextArea textArea;
+	public JLabel wordFreq;
 
 	public MyJFrame() {
 		super();
@@ -71,6 +72,7 @@ class MyJFrame extends JFrame {
 		btn1.addActionListener(new MyButtonListener(this));
 		word = new JLabel("Enter a word to be counted: ");
 		answer = new JLabel("Answer: ");
+		wordFreq = new JLabel("Top twenty words found are: ");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Word Count");
 		this.setLayout(new GridLayout(3, 2, 10, 10));
@@ -79,6 +81,7 @@ class MyJFrame extends JFrame {
 		this.add(userInput);
 		this.add(btn1);
 		this.add(answer);
+		this.add(wordFreq);
 		this.add(textArea);
 		this.pack();
 		this.setVisible(true);
@@ -162,10 +165,10 @@ class MyButtonListener implements ActionListener {
 				}
 
 				int mostFrequentlyUsed = 0;
-				String theWord = null;
 				String clientInput = userWord.toLowerCase();
 
 				for (String word : frequency.keySet()) {
+					String theWord = null;
 					Integer theVal = frequency.get(word);
 					if (clientInput.equals(word)) {
 						theWord = word;
@@ -205,11 +208,9 @@ class MyButtonListener implements ActionListener {
 
 				}
 
-				fr.textArea.setText("The top 20 word frequencies are: " + topTwenty);
+				fr.textArea.setText(topTwenty);
 
 				Set<Entry<String, Integer>> entrySetSortedByValue = sortedbyValue.entrySet();
-
-				System.out.println("The top 20 word frequencies are: ");
 
 				List<Entry<String, Integer>> sortedListOfEntries = new ArrayList<Entry<String, Integer>>(
 						entrySetSortedByValue);
