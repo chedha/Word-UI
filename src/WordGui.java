@@ -31,6 +31,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+/**
+ * 
+ * @author Chris Hall
+ * This class creates a thread that runs the constructGUI method.
+ * constructGUI builds a JFrame using the MyJFrame class.
+ * 
+ */
 public class WordGui {
 	private static void constructGUI() {
 		JFrame.setDefaultLookAndFeelDecorated(true);
@@ -38,6 +45,11 @@ public class WordGui {
 		frame.setVisible(true);
 
 	}
+	
+	/**
+	 * Initializing thread to build the frame.
+	 * @param args Main method
+	 */
 
 	public static void main(String[] args) {
 
@@ -50,6 +62,16 @@ public class WordGui {
 	}
 
 }
+
+/**
+ * 
+ * @author Chris Hall
+ * This class is used to build a JFrame. The frame
+ * will collect data from the user, and use it to
+ * scrape a web page to search for the user input. 
+ * 
+ *
+ */
 
 class MyJFrame extends JFrame {
 	public JLabel word;
@@ -89,6 +111,15 @@ class MyJFrame extends JFrame {
 	}
 }
 
+/**
+ * 
+ * @author Chris Hall
+ * This class collects data from the user.
+ * It grabs input from the userInput textfield
+ * when the submit button is clicked.
+ *
+ */
+
 class MyButtonListener implements ActionListener {
 	MyJFrame fr;
 
@@ -103,6 +134,9 @@ class MyButtonListener implements ActionListener {
 		String userWord = fr.userInput.getText();
 
 		try {
+			
+			// Performing web page scrape.
+			
 			Document doc = Jsoup.connect("https://www.gutenberg.org/files/1065/1065-h/1065-h.htm").get();
 
 			Elements title = doc.getElementsByAttribute("h1");
@@ -110,6 +144,9 @@ class MyButtonListener implements ActionListener {
 			Elements poem = doc.getElementsByClass("chapter");
 
 			try {
+				
+				// Adding web page text to a text file.
+				
 				FileOutputStream fileStream = null;
 				PrintWriter outFS = null;
 				fileStream = new FileOutputStream("RavenPoem.txt");
@@ -124,6 +161,8 @@ class MyButtonListener implements ActionListener {
 				BufferedReader reader = new BufferedReader(file);
 
 				Map<String, Integer> frequency = new HashMap<>();
+				
+				// Begin reading each line of the text file.
 
 				String line = reader.readLine();
 
@@ -163,6 +202,9 @@ class MyButtonListener implements ActionListener {
 					line = reader.readLine();
 
 				}
+				
+				// Outputs to a JLabel how many times a word was found in the document
+			
 
 				int mostFrequentlyUsed = 0;
 				String clientInput = userWord.toLowerCase();
@@ -178,7 +220,6 @@ class MyButtonListener implements ActionListener {
 					}
 
 				}
-
 				if (mostFrequentlyUsed == 0)
 					fr.answer.setText("The word \"" + clientInput + "\" was not found in the document");
 
@@ -196,6 +237,8 @@ class MyButtonListener implements ActionListener {
 					sortedbyValue.put(entry.getKey(), entry.getValue());
 
 				}
+				
+				// Outputs the top twenty words found in the document to a JTextArea.
 
 				String topTwenty = "";
 				int count = 0;
@@ -224,6 +267,11 @@ class MyButtonListener implements ActionListener {
 		}
 
 	}
+	
+	/**
+	 * Comparator override to sort the list of entries by value
+	 * @return object value comparison
+	 */
 
 	static Comparator<Entry<String, Integer>> valueComparator = new Comparator<Entry<String, Integer>>() {
 
