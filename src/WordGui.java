@@ -1,21 +1,18 @@
 import javax.swing.JFrame;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.JTextField;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.event.*;
-import java.io.IOException;
 
+import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,6 +27,7 @@ import java.util.TreeMap;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import java.sql.*;
 
 /**
  * 
@@ -204,7 +202,8 @@ class MyButtonListener implements ActionListener {
 				}
 				
 				// Outputs to a JLabel how many times a word was found in the document
-			
+				
+				
 
 				int mostFrequentlyUsed = 0;
 				String clientInput = userWord.toLowerCase();
@@ -238,20 +237,36 @@ class MyButtonListener implements ActionListener {
 
 				}
 				
-				// Outputs the top twenty words found in the document to a JTextArea.
-
-				String topTwenty = "";
-				int count = 0;
-				for (Entry<String, Integer> word : listOfEntries) {
-
-					topTwenty += word.getKey() + ", ";
-					count++;
-					if (count >= 20)
-						break;
-
+				// Creates and inserts words counts into a table. Reads and outputs top 20 words to a table.
+				
+				try {
+					wordDatabase.createTable();
+				} catch (Exception e1) {
+					
+					e1.printStackTrace();
 				}
+			
+				
+				wordDatabase.insertToTable(listOfEntries);
+				
+				String result = wordDatabase.queryTable();
+				
+				fr.textArea.setText(result);
+				
+				// Outputs the top twenty words found in the document to a JTextArea hardcoded.
 
-				fr.textArea.setText(topTwenty);
+//				String topTwenty = "";
+//				int count = 0;
+//				for (Entry<String, Integer> word : listOfEntries) {
+//
+//					topTwenty += word.getKey() + ", ";
+//					count++;
+//					if (count >= 20)
+//						break;
+//
+//				}
+//
+//				fr.textArea.setText(topTwenty);
 
 				Set<Entry<String, Integer>> entrySetSortedByValue = sortedbyValue.entrySet();
 
@@ -283,5 +298,17 @@ class MyButtonListener implements ActionListener {
 
 		}
 	};
+	
+
+	
+
+	
+
+
+
+                                
+	
+	
+	
 
 }
